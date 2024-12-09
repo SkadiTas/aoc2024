@@ -14,6 +14,12 @@ for line in data:
 for page in pageData:
     pages.append(page.split(','))
 
+befores = []
+afters = []
+for rule in rules:
+    befores.append(rule[:2])
+    afters.append(rule[3:])
+
 # Helper function for sum of middles #
 def getSumFromList(safeList):
     totalSafeSum = 0
@@ -23,11 +29,6 @@ def getSumFromList(safeList):
     return totalSafeSum
 
 #-------- Part One --------#
-befores = []
-afters = []
-for rule in rules:
-    befores.append(rule[:2])
-    afters.append(rule[3:])
 
 def getSafeList():
     safeList = pages.copy()
@@ -44,16 +45,12 @@ safeList = getSafeList()
 partOneAnswer = getSumFromList(safeList)
 print("Part One Answer: ",partOneAnswer)
 
-#-------- Part Two --------#
+# -------- Part Two -------- #
 def findUnsafeList():
-    unSafeList = pages.copy()
-    for i in range(len(pages)):
-        for k in range(len(befores)):
-            if befores[k] in pages[i] and afters[k] in pages[i]:
-                beforeIndex = pages[i].index(befores[k])
-                afterIndex = pages[i].index(afters[k])
-                if beforeIndex < afterIndex and pages[i] in unSafeList:
-                    del unSafeList[unSafeList.index(pages[i])]
+    unSafeList = []
+    for page in pages:
+        if page not in safeList:
+            unSafeList.append(page)
     return unSafeList
 
 def makeToSafeList(unSafeList):
@@ -67,7 +64,8 @@ def makeToSafeList(unSafeList):
     return unSafeList
 
 unSafeList = findUnsafeList()
-partTwoCheckList = makeToSafeList(unSafeList)
+for i in range (1,10):
+    partTwoCheckList = makeToSafeList(unSafeList)
 partTwoAnswer = getSumFromList(partTwoCheckList)
 print("Part Two Answer: ",partTwoAnswer)
 
