@@ -18,8 +18,6 @@ def findGuard():
                 direction = guards.index(data[y][x])
     return [currentY, currentX, direction, 1, True]
 
-guard = findGuard()
-
 def goDir(guard):
     if guard[2] == 0:
         print("Up")
@@ -34,14 +32,15 @@ def goDir(guard):
                 else:
                     guard[2] = 0
                 return guard
-            elif data[y][guard[1]] == '.':
-                continue
-            else:
-                print("Bounds reached, guard exiting")
-                dist = guard[0]
-                guard[3] += dist
-                guard[4] = False
-                return guard
+            elif data[y][guard[1]] in ['.', '^']:
+                if y == len(data)-1:
+                    print("Bounds reached, guard exiting")
+                    dist = len(data) - guard[0]
+                    guard[3] += dist
+                    guard[4] = False
+                    return guard
+                else:
+                    continue
 
     elif guard[2] == 1:
         print("Right")
@@ -56,14 +55,15 @@ def goDir(guard):
                 else:
                     guard[2] = 0
                 return guard
-            elif data[guard[0]][x] == '.':
-                continue
-            else:
-                print("Bounds reached, guard exiting")
-                dist = len(data[0]) - guard[1]
-                guard[3] += dist
-                guard[4] = False
-                return guard
+            elif data[guard[0]][x] in ['.', '^']:
+                if y == len(data)-1:
+                    print("Bounds reached, guard exiting")
+                    dist = len(data) - guard[0]
+                    guard[3] += dist
+                    guard[4] = False
+                    return guard
+                else:
+                    continue
 
     elif guard[2] == 2:
         print("Down")
@@ -78,14 +78,15 @@ def goDir(guard):
                 else:
                     guard[2] = 0
                 return guard
-            elif data[y][guard[1]] == '.':
-                continue
-            else:
-                print("Bounds reached, guard exiting")
-                dist = len(data) - guard[0]
-                guard[3] += dist
-                guard[4] = False
-                return guard
+            elif data[y][guard[1]] in ['.', '^']:
+                if y == len(data)-1:
+                    print("Bounds reached, guard exiting")
+                    dist = len(data) - guard[0]
+                    guard[3] += dist
+                    guard[4] = False
+                    return guard
+                else:
+                    continue
 
     elif guard[2] == 3:
         print("Left")
@@ -101,16 +102,21 @@ def goDir(guard):
                     guard[2] = 0
                 return guard
             elif data[guard[0]][x] in ['.', '^']:
-                continue
-            elif x == len(data[0]):
-                print("Bounds reached, guard exiting")
-                dist = guard[1]
-                guard[3] += dist
-                guard[4] = False
-                return guard
+                if y == len(data)-1:
+                    print("Bounds reached, guard exiting")
+                    dist = len(data) - guard[0]
+                    guard[3] += dist
+                    guard[4] = False
+                    return guard
+                else:
+                    continue
     return guard
+
+guard = findGuard()
+print("Initial Guard: ",guard)
 
 while guard[4] == True:
     guard = goDir(guard)
-
+    
 print("Patrol complete, traversed distance: ", guard[3])
+print("Guard Position: ",guard[0],guard[1])
