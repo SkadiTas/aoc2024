@@ -33,9 +33,9 @@ def goDir(guard):
                     guard[2] = 0
                 return guard
             elif data[y][guard[1]] in ['.', '^']:
-                if y == len(data)-1:
+                if y == 0:
                     print("Bounds reached, guard exiting")
-                    dist = len(data) - guard[0]
+                    dist = guard[0]
                     guard[3] += dist
                     guard[4] = False
                     return guard
@@ -56,9 +56,9 @@ def goDir(guard):
                     guard[2] = 0
                 return guard
             elif data[guard[0]][x] in ['.', '^']:
-                if y == len(data)-1:
+                if x == len(data[0])-1:
                     print("Bounds reached, guard exiting")
-                    dist = len(data) - guard[0]
+                    dist = len(data[0]) - guard[1]
                     guard[3] += dist
                     guard[4] = False
                     return guard
@@ -102,9 +102,9 @@ def goDir(guard):
                     guard[2] = 0
                 return guard
             elif data[guard[0]][x] in ['.', '^']:
-                if y == len(data)-1:
+                if x == 0:
                     print("Bounds reached, guard exiting")
-                    dist = len(data) - guard[0]
+                    dist = guard[1]
                     guard[3] += dist
                     guard[4] = False
                     return guard
