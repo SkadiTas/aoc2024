@@ -4,35 +4,35 @@ nums = [int(d) for d in str(data)]
 # ---------- Part One --------- #
 datalist = []
 
-# for i, num in enumerate(nums):
-#     if i % 2 == 0:
-#         for j in range(0, num):
-#             datalist.append(round(i / 2))
-#     else:
-#         for j in range(0, num):
-#             datalist.append('.')
+for i, num in enumerate(nums):
+    if i % 2 == 0:
+        for j in range(0, num):
+            datalist.append(round(i / 2))
+    else:
+        for j in range(0, num):
+            datalist.append('.')
 
-# def getLastNum(index):
-#     for i in reversed(range(len(datalist))):
-#         if i == index:
-#             return "Done"
-#         elif datalist[i] != '.':
-#             return i
+def getLastNum(index):
+    for i in reversed(range(len(datalist))):
+        if i == index:
+            return "Done"
+        elif datalist[i] != '.':
+            return i
 
-# for i in range(len(datalist)):
-#     if datalist[i] == '.':
-#         toSwap = getLastNum(i)
-#         if toSwap == "Done":
-#             print("Stopped at index: ", i)
-#             break
-#         else:
-#             datalist[i], datalist[toSwap] = datalist[toSwap], datalist[i]
+for i in range(len(datalist)):
+    if datalist[i] == '.':
+        toSwap = getLastNum(i)
+        if toSwap == "Done":
+            print("Stopped at index: ", i)
+            break
+        else:
+            datalist[i], datalist[toSwap] = datalist[toSwap], datalist[i]
 
-# checksum = 0
-# for i, id in enumerate(datalist):
-#     if id != '.':
-#         checksum += (i * int(id))
-
+checksum1 = 0
+for i, id in enumerate(datalist):
+    if id != '.':
+        checksum1 += (i * int(id))
+print("Part One Answer: ", checksum1)
 
 # ---------- Part Two --------- #
 list2 = []
@@ -75,8 +75,8 @@ for i in range(len(list2)-1, 0, -1):
         attempted.append(char)
 
 
-checksum = 0
+checksum2 = 0
 for i, id in enumerate(list2):
     if id != '.':
-        checksum += (i * int(id))
-print(checksum)
+        checksum2 += (i * int(id))
+print("Part Two Answer: ",checksum2)
