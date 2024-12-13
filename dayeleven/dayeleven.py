@@ -1,29 +1,32 @@
 import sys
 data = open("./input.txt", "r").read().split()
 nums = [int(d) for d in data]
+tracking = {}
 
+def blink(num, targetBlinks):
+    if targetBlinks == 0:
+        return 1
+    if (num, targetBlinks) in tracking:
+        return tracking[(num, targetBlinks)]
+    digits = len(str(num))
+    if num == 0:
+        result = blink(1, targetBlinks-1)
+    elif (digits % 2) == 0:
+        split = round(digits / 2)
+        num = str(num)
+        r1 = int(num[:split])
+        r2 = int(num[split:])
+        result = blink(r1, targetBlinks-1)
+        result += blink(r2, targetBlinks-1)
+    else:
+        result = blink(num * 2024, targetBlinks-1)
+    tracking[(num, targetBlinks)] = result
+    return result
 
-def blink():
-    newlist = []
-    for i in range(len(nums)):
-        #print("working on: ",nums[i])
-        digits = len(str(nums[i]))
-        if nums[i] == 0:
-            #print("This number is zero: ",nums[i])
-            newlist.append(1)
-        elif (digits % 2) == 0:
-            #print("This number has an even amount of digits: ",nums[i])
-            split = round(digits / 2)
-            num = str(nums[i])
-            r1 = num[:split]
-            r2 = num[split:]
-            newlist.append(int(r1))
-            newlist.append(int(r2))
-        else:
-            #print("This number will be multiplied by 2024: ",nums[i])
-            newlist.append(int(nums[i]) * 2024)
-    return newlist
+targetBlinks = 75
+answer = 0
+for i in range(len(nums)):
+    stones = blink(nums[i], targetBlinks)
+    answer += stones
 
-for i in range(0, 75):
-    nums = blink()
-    sys.stdout.write("\rPart One Answer: %i | %i" %(len(nums),i))
+print("Part Two Answer: ", answer)
