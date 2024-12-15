@@ -1,5 +1,3 @@
-from shapely import Point, Polygon, make_valid, polygonize
-
 data = open("./input.txt", "r").read().split()
 xbound = len(data[0]) - 1
 ybound = len(data) - 1
