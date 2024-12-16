@@ -60,6 +60,17 @@ def evaluateGrid(grid, w, h):
     print("Results: TL: %i | TR: %i | BR: %i | BL: %i" %(tl, tr, bl, br))
     return (tl * tr * bl * br)
     
+#cbf getting epilepsy
+def checkForTree(grid):
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            if grid[i][j] != 0 and i < 70 and j < 70:
+                if grid[i+1][j+1] != 0:
+                    if grid[i+2][j+2] != 0:
+                        if grid[i+3][j+3] != 0:
+                            if grid[i+4][j+4] != 0:
+                                if grid[i+5][j+5] != 0:
+                                    return True
 
 def placeBot(grid, bot):
     x = bot[0]
@@ -117,12 +128,13 @@ def iterateBotPos(bot, vel, maxW, maxH):
 maxW = 101
 maxH = 103
 
-for i in range(0, 1000):
+for i in range(0, 10000):
     grid = constructGrid(maxW, maxH)
     for j in range(len(bots)):
         bots[j] = iterateBotPos(bots[j], vels[j], maxW, maxH)
         placeBot(grid, bots[j])
-    for row in grid:
-        print(row)
     print("Seconds Elapsed: ", i)
-    time.sleep(0.3)
+    if checkForTree(grid) == True:
+        for row in grid:
+            print(row)
+        time.sleep(2)
