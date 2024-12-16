@@ -95,20 +95,34 @@ def iterateBotPos(bot, vel, maxW, maxH):
             newbot[1] = curY + velY
     return newbot
 
+# Part One #
+# maxW = 11
+# maxH = 7
+# grid = constructGrid(maxW, maxH)
 
-maxW = 11
-maxH = 7
-grid = constructGrid(maxW, maxH)
+# for i in range(0, 100):
+#     for j in range(len(bots)):
+#         bots[j] = iterateBotPos(bots[j], vels[j], maxW, maxH)
 
-for i in range(0, 100):
+
+# for i in range(len(bots)):
+#     placeBot(grid, bots[i])
+
+# for row in grid:
+#     print(row)
+
+# print("Safety Factor: ",evaluateGrid(grid, maxW, maxH))
+
+# Part Two #
+maxW = 101
+maxH = 103
+
+for i in range(0, 1000):
+    grid = constructGrid(maxW, maxH)
     for j in range(len(bots)):
         bots[j] = iterateBotPos(bots[j], vels[j], maxW, maxH)
-
-
-for i in range(len(bots)):
-    placeBot(grid, bots[i])
-
-for row in grid:
-    print(row)
-
-print("Safety Factor: ",evaluateGrid(grid, maxW, maxH))
+        placeBot(grid, bots[j])
+    for row in grid:
+        print(row)
+    print("Seconds Elapsed: ", i)
+    time.sleep(0.3)
